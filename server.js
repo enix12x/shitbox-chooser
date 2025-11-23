@@ -10,13 +10,11 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static('public'));
 
-// Serve app.js explicitly
 app.get('/app.js', (req, res) => {
   res.type('application/javascript');
   res.sendFile(path.join(__dirname, 'app.js'));
 });
 
-// Load config
 let config;
 try {
   const configData = fs.readFileSync(path.join(__dirname, 'config.json'), 'utf8');
@@ -28,12 +26,10 @@ try {
 
 const PORT = config.port || 4000;
 
-// Generate stable IDs for buttons
 function generateButtonId(index) {
   return `btn_${index}`;
 }
 
-// API endpoint to get config
 app.get('/api/config', (req, res) => {
   try {
     const buttons = Array.isArray(config.buttons) ? config.buttons : [];
@@ -57,12 +53,9 @@ app.get('/api/config', (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-
-// API endpoint to verify password
 app.post('/api/verify-password', (req, res) => {
   const { buttonId, password } = req.body;
   
-  // Find button by index or ID
   const buttonIndex = parseInt(buttonId.replace('btn_', ''));
   const button = config.buttons[buttonIndex] || config.buttons.find(btn => btn.id === buttonId);
   
@@ -77,7 +70,6 @@ app.post('/api/verify-password', (req, res) => {
   }
 });
 
-// Serve the HTML page
 app.get('/', (req, res) => {
   try {
     let html = fs.readFileSync(path.join(__dirname, 'index.html'), 'utf8');
