@@ -3,8 +3,6 @@ let branding = 'Shitbox Chooser';
 let currentButton = null;
 let passwordModal = null;
 let disclaimerModal = null;
-
-// Initialize modals
 document.addEventListener('DOMContentLoaded', () => {
   console.log('DOM loaded, initializing...');
   
@@ -21,8 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
       '<p class="text-danger">Error initializing: ' + error.message + '</p>';
   }
 });
-
-// Load config from backend
 async function loadConfig() {
   try {
     const response = await fetch('/api/config');
@@ -34,11 +30,9 @@ async function loadConfig() {
     branding = data.branding;
     buttons = data.buttons || [];
     
-    // Update branding
     document.getElementById('branding').textContent = branding;
     document.title = branding;
     
-    // Render buttons
     renderButtons();
   } catch (error) {
     console.error('Error loading config:', error);
@@ -47,7 +41,6 @@ async function loadConfig() {
   }
 }
 
-// Render buttons
 function renderButtons() {
   const container = document.getElementById('buttonsContainer');
   if (!container) {
@@ -69,14 +62,12 @@ function renderButtons() {
     try {
       let btn;
       if (button.useBootstrap !== false) {
-        // Bootstrap styled button (default)
         btn = document.createElement('button');
         btn.type = 'button';
         btn.className = 'btn btn-primary w-100 mb-2';
         btn.textContent = button.name || 'Unnamed Button';
         btn.onclick = () => handleButtonClick(button);
       } else {
-        // Plain list styled button
         btn = document.createElement('button');
         btn.type = 'button';
         btn.className = 'plain-button text-light';
@@ -93,11 +84,9 @@ function renderButtons() {
   console.log('Container after rendering:', container.innerHTML);
 }
 
-// Handle button click
 async function handleButtonClick(button) {
   currentButton = button;
   
-  // Check if password is required
   if (button.passwordProtected) {
     document.getElementById('passwordInput').value = '';
     document.getElementById('passwordError').style.display = 'none';
@@ -105,18 +94,15 @@ async function handleButtonClick(button) {
     return;
   }
   
-  // Check if disclaimer is required
   if (button.showDisclaimer) {
     document.getElementById('disclaimerText').textContent = button.disclaimer;
     disclaimerModal.show();
     return;
   }
   
-  // Direct redirect
   redirectToUrl(button.url);
 }
 
-// Setup password submit
 function setupPasswordSubmit() {
   document.getElementById('passwordSubmit').addEventListener('click', async () => {
     const password = document.getElementById('passwordInput').value;
@@ -139,7 +125,6 @@ function setupPasswordSubmit() {
       if (response.ok && data.success) {
         passwordModal.hide();
         
-        // Check if disclaimer is required after password
         if (currentButton.showDisclaimer) {
           document.getElementById('disclaimerText').textContent = currentButton.disclaimer;
           disclaimerModal.show();
@@ -156,7 +141,6 @@ function setupPasswordSubmit() {
     }
   });
   
-  // Allow Enter key to submit password
   document.getElementById('passwordInput').addEventListener('keypress', (e) => {
     if (e.key === 'Enter') {
       document.getElementById('passwordSubmit').click();
@@ -164,7 +148,6 @@ function setupPasswordSubmit() {
   });
 }
 
-// Setup disclaimer OK
 function setupDisclaimerOk() {
   document.getElementById('disclaimerOk').addEventListener('click', () => {
     disclaimerModal.hide();
@@ -172,7 +155,6 @@ function setupDisclaimerOk() {
   });
 }
 
-// Redirect to URL
 function redirectToUrl(url) {
   window.location.href = url;
 }
