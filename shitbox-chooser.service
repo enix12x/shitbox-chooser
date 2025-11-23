@@ -1,0 +1,18 @@
+[Unit]
+Description=Shitbox Chooser Service
+After=network.target
+
+[Service]
+Type=simple
+User=enix
+WorkingDirectory=/home/enix/Code/shitbox/chooser
+ExecStart=/usr/bin/node /home/enix/Code/shitbox/chooser/server.js
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+Environment=NODE_ENV=production
+
+[Install]
+WantedBy=multi-user.target
+

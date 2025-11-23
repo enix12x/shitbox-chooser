@@ -1,0 +1,25 @@
+{
+  // Branding text displayed on the page
+  "branding": "Shitbox Chooser",
+  // Port the server runs on
+  "port": 4000,
+  // List of buttons/links
+  "buttons": [
+    {
+      // Display name for the button
+      "name": "Example Link",
+      // URL to redirect to
+      "url": "https://example.com",
+      // Enable password protection before redirect
+      "passwordProtected": false,
+      // Password (only used if passwordProtected is true)
+      "password": "",
+      // Show disclaimer before redirect
+      "showDisclaimer": false,
+      // Disclaimer text (only shown if showDisclaimer is true)
+      "disclaimer": "",
+      // Use Bootstrap styling (true) or plain list styling (false)
+      "useBootstrap": true
+    }
+  ]
+}
