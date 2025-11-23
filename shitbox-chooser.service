@@ -4,9 +4,9 @@ After=network.target
 
 [Service]
 Type=simple
-User=enix
-WorkingDirectory=/home/enix/Code/shitbox/chooser
-ExecStart=/usr/bin/node /home/enix/Code/shitbox/chooser/server.js
+User=XXXX
+WorkingDirectory=/path/to/shitbox/chooser
+ExecStart=/usr/bin/node /path/to/shitbox/chooser/server.js
 Restart=always
 RestartSec=10
 StandardOutput=journal
