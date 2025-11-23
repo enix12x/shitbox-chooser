@@ -1,7 +1,7 @@
 {
   "name": "shitbox-chooser",
   "version": "1.0.0",
-  "description": "Simple page chooser with password protection and disclaimers",
+  "description": "idk",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
